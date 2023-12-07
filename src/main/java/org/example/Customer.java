@@ -4,9 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 public class Customer {
-    String customerName, customerEmail, customerAddress, customerGender, customerAadhar, customerPhone;
-    float balance;
-    int counter;
+    private String customerName, customerEmail, customerAddress, customerGender, customerAadhar, customerPhone;
+    private float balance;
+    private int counter;
 
     public int getCounter() {
         return counter;
@@ -30,7 +30,7 @@ public class Customer {
         catch(IOException e){
             e.printStackTrace();
         }
-        balance = 10000;
+        balance = 1000;
         counter = 0;
     }
 

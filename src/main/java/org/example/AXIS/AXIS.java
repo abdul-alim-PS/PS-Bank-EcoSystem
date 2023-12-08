@@ -3,6 +3,7 @@ package org.example.AXIS;
 import org.example.AXIS.enums.Constants;
 import org.example.AXIS.enums.TypesOfLoan;
 import org.example.Customer;
+import org.example.CustomerListStorage;
 import org.example.RBI;
 
 import java.io.BufferedReader;
@@ -19,9 +20,9 @@ public class AXIS implements RBI {
     Customer customer;
     float minimum_balance;
 
-    public AXIS(BufferedReader buff) {
+    public AXIS(BufferedReader buff, CustomerListStorage customerList) {
         System.out.println("Enter Customer Details: ");
-        this.customer = new Customer(buff);
+        this.customer = new AxisCustomers(buff);
         this.minimum_balance = Constants.MINIMUM_BALANCE.getValue();
         String answer = null;
         boolean choice_flag = true;
@@ -47,6 +48,7 @@ public class AXIS implements RBI {
                 choice_flag = true;
             }
         }
+        customerList.addCustomer(customer);
     }
     private void callingOperations(BufferedReader buff,int selectedOperation){
         switch (selectedOperation){

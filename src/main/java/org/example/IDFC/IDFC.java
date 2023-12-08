@@ -1,9 +1,9 @@
-package org.example.HDFC;
+package org.example.IDFC;
 
 import org.example.Customer;
 import org.example.CustomerListStorage;
-import org.example.HDFC.enums.Constants;
-import org.example.HDFC.enums.TypesOfLoan;
+import org.example.IDFC.enums.Constants;
+import org.example.IDFC.enums.TypesOfLoan;
 import org.example.RBI;
 
 import java.io.BufferedReader;
@@ -11,7 +11,7 @@ import java.io.IOException;
 
 import static java.lang.Math.pow;
 
-public class HDFC implements RBI {
+public class IDFC implements RBI {
     float amount;
     int typeOfLoan;
     float ROI;
@@ -20,15 +20,15 @@ public class HDFC implements RBI {
     Customer customer;
     float minimum_balance;
 
-    public HDFC(BufferedReader buff, CustomerListStorage customerList) {
+    public IDFC(BufferedReader buff, CustomerListStorage customerList) {
         System.out.println("Enter Customer Details: ");
-        this.customer = new HDFCCustomers(buff);
+        this.customer = new IDFCCustomers(buff);
         this.minimum_balance = Constants.MINIMUM_BALANCE.getValue();
         String answer = null;
         boolean choice_flag = true;
         int selectedOperation=0;
         while (choice_flag) {
-            System.out.println("Welcome to HDFC Select your choice\n1. Deposit\n2. Withdraw\n3. OpenFD\n4. Apply Loan\n5. Apply cc\n6. Get Balance");
+            System.out.println("Welcome to AXIS Select your choice\n1. Deposit\n2. Withdraw\n3. OpenFD\n4. Apply Loan\n5. Apply cc\n6. Get Balance");
             try {
                 selectedOperation = Integer.parseInt(buff.readLine());
             } catch (IOException e) {

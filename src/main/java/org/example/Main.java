@@ -3,13 +3,15 @@ package org.example;
 import org.example.AXIS.AXIS;
 import org.example.HDFC.HDFC;
 import org.example.ICICI.ICICI;
+import org.example.IDFC.IDFC;
+import org.example.SBI.SBI;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Main {
-    int selectedBank,selectedOperation;
+public class Main extends Thread{
+    int selectedBank;
     boolean bank_flag;
     BufferedReader buff;
     InputStreamReader isr;
@@ -26,38 +28,47 @@ public class Main {
 
     public static void main(String[] args) {
         Main obj = new Main();
-        while (obj.bank_flag) {
-            System.out.println("Welcome to IBS\nPlease select your bank\n1. ICICI\n2. HDFC\n3. SBI\n4. AXIS\n5. IDFC");
+        obj.run();
+    }
+    @Override
+    public void run(){
+        CustomerListStorage customerList = new CustomerListStorage();
+        while (bank_flag) {
+            System.out.println("Welcome to IBS\nPlease select your bank or other operations\n1. ICICI\n2. HDFC\n3. SBI\n4. AXIS\n5. IDFC\n6. Count Bank Customers\n7. Top Bank Customers\n8. Exit ");
             try {
-                obj.selectedBank = Integer.parseInt(obj.buff.readLine());
+                selectedBank = Integer.parseInt(buff.readLine());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.println("Customer Selected " + obj.selectedBank);
-            switch(obj.selectedBank){
+            String bank = "";
+            System.out.println("Customer Selected " + selectedBank);
+            switch(selectedBank){
                 case 1:
-                    ICICI icici = new ICICI(obj.buff);
+                    RBI icici = new ICICI(buff,customerList);
                     break;
                 case 2:
-                    HDFC hdfc = new HDFC(obj.buff);
+                    RBI hdfc = new HDFC(buff,customerList);
+                    break;
+                case 3:
+                    RBI sbi = new SBI(buff,customerList);
                     break;
                 case 4:
-                    AXIS axis = new AXIS(obj.buff);
+                    RBI axis = new AXIS(buff,customerList);
+                    break;
+                case 5:
+                    RBI idfc = new IDFC(buff,customerList);
+                    break;
+                case 6:
+                    customerList.countCustomers();
+                    break;
+                case 7:
+                    customerList.topKOfBankB(buff);
+                    break;
+                case 8:
+                    bank_flag = false;
                     break;
                 default:
                     System.out.println("Invalid Input");
-            }
-            String answer = null;
-            System.out.println("Would you like to exit From IBS (yes/no): ");
-            try {
-                answer = obj.buff.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (answer != null && answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y")) {
-                obj.bank_flag = false;
-            } else if (answer.equalsIgnoreCase("no") || answer.equalsIgnoreCase("n")) {
-                obj.bank_flag = true;
             }
         }
     }

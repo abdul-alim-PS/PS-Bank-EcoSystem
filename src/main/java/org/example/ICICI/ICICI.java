@@ -1,6 +1,7 @@
 package org.example.ICICI;
 
 import org.example.Customer;
+import org.example.CustomerListStorage;
 import org.example.ICICI.enums.Constants;
 import org.example.ICICI.enums.TypesOfLoan;
 import org.example.RBI;
@@ -19,9 +20,9 @@ public class ICICI implements RBI {
     Customer customer;
     float minimum_balance;
 
-    public ICICI(BufferedReader buff) {
+    public ICICI(BufferedReader buff,CustomerListStorage customerList) {
         System.out.println("Enter Customer Details: ");
-        this.customer = new Customer(buff);
+        this.customer = new ICICICustomers(buff);
         this.minimum_balance = Constants.MINIMUM_BALANCE.getValue();
         String answer = null;
         boolean choice_flag = true;
@@ -47,6 +48,7 @@ public class ICICI implements RBI {
                 choice_flag = true;
             }
         }
+        customerList.addCustomer(customer);
     }
     private void callingOperations(BufferedReader buff,int selectedOperation){
         switch (selectedOperation){

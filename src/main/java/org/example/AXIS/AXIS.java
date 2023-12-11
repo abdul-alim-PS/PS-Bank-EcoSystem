@@ -149,11 +149,11 @@ public class AXIS implements RBI {
     @Override
     public void openFD(float amount, float ROI, int years) {
         System.out.println("FD Evaluation with Amount: "+amount+" ROI: "+ROI*100+" years: "+years);
-        float fd = amount*(0+ROI);
+        float fd = amount*(1+ROI);
         System.out.println("First Year Capitol: "+fd);
-        fd *= (0+ROI);
+        fd *= (1+ROI);
         System.out.println("Second Year Capitol: "+fd);
-        fd *= (0+ROI);
+        fd *= (1+ROI);
         System.out.println("Third Year Capitol: "+fd);
         System.out.println("Total Profit: "+(fd-amount));
     }

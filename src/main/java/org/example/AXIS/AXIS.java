@@ -8,6 +8,7 @@ import org.example.RBI;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.List;
 
 import static java.lang.Math.pow;
 
@@ -19,6 +20,19 @@ public class AXIS implements RBI {
     int loanYear;
     Customer customer;
     float minimum_balance;
+    public float[] fd;
+    public float loanAmount;
+    public boolean applyCC;
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public AXIS(){
+        this.customer = new Customer();
+        minimum_balance = 5000;
+        this.fd = new float[3];
+    }
 
     public AXIS(BufferedReader buff, CustomerListStorage customerList) {
         System.out.println("Enter Customer Details: ");
@@ -149,11 +163,14 @@ public class AXIS implements RBI {
     @Override
     public void openFD(float amount, float ROI, int years) {
         System.out.println("FD Evaluation with Amount: "+amount+" ROI: "+ROI*100+" years: "+years);
-        float fd = amount*(0+ROI);
+        float fd = amount*(1+ROI);
+        this.fd[0] = fd;
         System.out.println("First Year Capitol: "+fd);
-        fd *= (0+ROI);
+        fd *= (1+ROI);
+        this.fd[1] = fd;
         System.out.println("Second Year Capitol: "+fd);
-        fd *= (0+ROI);
+        fd *= (1+ROI);
+        this.fd[2] = fd;
         System.out.println("Third Year Capitol: "+fd);
         System.out.println("Total Profit: "+(fd-amount));
     }
@@ -163,9 +180,11 @@ public class AXIS implements RBI {
         float balance = customer.getBalance();
         if(balance>(minimum_balance*2)) {
             double totalAmount = amount * pow((1 + ROI), years);
+            loanAmount = (float) totalAmount;
             System.out.println("For loan type " + loanType + "The Amount need to paid by you at the end of " + years + " is: " + totalAmount);
         }
         else{
+            loanAmount = 0f;
             System.out.println("You are not eligible for loan");
         }
     }
@@ -174,9 +193,11 @@ public class AXIS implements RBI {
     public void applyCreditCard() {
         float balance = customer.getBalance();
         if(balance>(minimum_balance*2)) {
+            applyCC = true;
             System.out.println("You are eligible for credit card. With credit ROI: "+(Constants.CREDIT_ROI.getValue()*100));
         }
         else{
+            applyCC = false;
             System.out.println("You are not eligible for credit card");
         }
     }

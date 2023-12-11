@@ -15,6 +15,12 @@ public class Customer {
     public void setCounter(int counter) {
         this.counter = counter;
     }
+    public Customer(){
+        bankName = "Test";
+        customerName = "Test";
+        balance = 10000;
+        counter = 0;
+    }
 
     public Customer(BufferedReader buff,String bank){
         try {

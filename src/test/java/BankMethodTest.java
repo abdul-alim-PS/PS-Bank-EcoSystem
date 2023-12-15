@@ -8,6 +8,9 @@ import java.util.List;
 public class BankMethodTest {
     @Test
     void depositMoney(){
+        // This axis constructor will create a customer with 10000 balance.
+        // I am checking for only one axis class methods as other implemented method similarly
+        // just the minimum_balance or ROI are different.
         AXIS axis = new AXIS();
         float money = 1000;
         axis.depositMoney(money);
@@ -22,6 +25,9 @@ public class BankMethodTest {
         float result = axis.getCustomer().getBalance();
         Assertions.assertEquals(9000f,result);
         axis.withdrawMoney(5000f);
+        // I have set the minimum balance for this bank to be 5000 so this withdraw
+        // must not happen as the balance of the user will be set to 4000<5000
+        // For this reason I am checking if the balance still 9000.
         Assertions.assertEquals(9000f,axis.getCustomer().getBalance());
     }
     @Test

@@ -9,12 +9,16 @@ import org.example.SBI.SBI;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 public class Main extends Thread{
     int selectedBank;
     boolean bank_flag;
     BufferedReader buff;
     InputStreamReader isr;
+    public final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     public Main() {
         bank_flag = true;
         if(isr == null) {
@@ -34,14 +38,13 @@ public class Main extends Thread{
     public void run(){
         CustomerListStorage customerList = new CustomerListStorage();
         while (bank_flag) {
-            System.out.println("Welcome to IBS\nPlease select your bank or other operations\n1. ICICI\n2. HDFC\n3. SBI\n4. AXIS\n5. IDFC\n6. Count Bank Customers\n7. Top Bank Customers\n8. Exit ");
+            LOGGER.log(Level.INFO,"Welcome to IBS\nPlease select your bank or other operations\n1. ICICI\n2. HDFC\n3. SBI\n4. AXIS\n5. IDFC\n6. Count Bank Customers\n7. Top Bank Customers\n8. Exit ");
             try {
                 selectedBank = Integer.parseInt(buff.readLine());
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.log(Level.INFO,e.getMessage());
             }
-            String bank = "";
-            System.out.println("Customer Selected " + selectedBank);
+            LOGGER.log(Level.INFO,"Customer Selected " + selectedBank);
             switch(selectedBank){
                 case 1:
                     RBI icici = new ICICI(buff,customerList);
@@ -68,7 +71,7 @@ public class Main extends Thread{
                     bank_flag = false;
                     break;
                 default:
-                    System.out.println("Invalid Input");
+                    LOGGER.log(Level.INFO,"Invalid Input");
             }
         }
     }

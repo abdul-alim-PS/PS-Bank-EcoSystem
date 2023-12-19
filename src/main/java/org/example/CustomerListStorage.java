@@ -3,6 +3,9 @@ package org.example;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.*;
+import java.util.logging.Level;
+
+import static org.example.Main.LOGGER;
 
 public class CustomerListStorage {
     public List<Customer> customerList;
@@ -28,7 +31,7 @@ public class CustomerListStorage {
     }
     public void countCustomers(){
         if(customerList.isEmpty()){
-            System.out.println("No customers been added. Please add customer");
+            LOGGER.log(Level.INFO,"No customers been added. Please add customer");
             return;
         }
         HashMap<String,Integer> counter = new HashMap<>();
@@ -44,17 +47,17 @@ public class CustomerListStorage {
                 counter.put(bank,count+1);
             }
         }
-        System.out.println("Below is the count of customers for each bank");
-        counter.forEach((key,value)->System.out.println("Bank: "+key+" Count of Customers: "+value));
+        LOGGER.log(Level.INFO,"Below is the count of customers for each bank");
+        counter.forEach((key,value)->LOGGER.log(Level.INFO,"Bank: "+key+" Count of Customers: "+value));
     }
     public void topKOfBankB(BufferedReader buff){
         int k=5,selectBank=0;
         String bank;
-        System.out.println("Select the bank:\n1. ICICI\n2. HDFC\n3. SBI\n4. AXIS\n5. IDFC");
+        LOGGER.log(Level.INFO,"Select the bank:\n1. ICICI\n2. HDFC\n3. SBI\n4. AXIS\n5. IDFC");
         try {
             selectBank = Integer.parseInt(buff.readLine());
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.INFO,e.getMessage());
         }
         switch (selectBank){
             case 1:
@@ -75,14 +78,14 @@ public class CustomerListStorage {
             default:
                 return;
         }
-        System.out.println("How many would you like to see");
+        LOGGER.log(Level.INFO,"How many would you like to see");
         try {
             k = Integer.parseInt(buff.readLine());
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.INFO,e.getMessage());
         }
         if(customerList.isEmpty()){
-            System.out.println("No customers been added. Please add customer");
+            LOGGER.log(Level.INFO,"No customers been added. Please add customer");
             return;
         }
         HashMap<String,Float> customerMap = new HashMap<>();
@@ -93,9 +96,9 @@ public class CustomerListStorage {
         }
         List<Map.Entry<String, Float>> entryList = new ArrayList<>(customerMap.entrySet());
         Collections.sort(entryList, Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()));
-        System.out.println("The top "+k+" balance holder of the bank "+bank+" are given below");
+        LOGGER.log(Level.INFO,"The top "+k+" balance holder of the bank "+bank+" are given below");
         for(int i=0;i<entryList.size()&&i<k;i++){
-            System.out.println(entryList.get(i).getKey()+" : "+entryList.get(i).getValue());
+            LOGGER.log(Level.INFO,entryList.get(i).getKey()+" : "+entryList.get(i).getValue());
         }
     }
 }

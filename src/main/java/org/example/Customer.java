@@ -2,7 +2,9 @@ package org.example;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.logging.Level;
+
+import static org.example.Main.LOGGER;
 
 public class Customer {
     private String bankName,customerName, customerEmail, customerAddress, customerGender, customerAadhar, customerPhone;
@@ -18,19 +20,19 @@ public class Customer {
 
     public Customer(BufferedReader buff,String bank){
         try {
-            System.out.print("Enter name:");
+            LOGGER.log(Level.INFO,"Enter name:");
             customerName = buff.readLine();
-//            System.out.print("Enter email:");
-//            customerEmail = buff.readLine();
-//            System.out.print("Enter Gender:");
-//            customerGender = buff.readLine();
-//            System.out.print("Enter Phone:");
-//            customerPhone = buff.readLine();
-            System.out.print("Adhaar Card No:");
+            LOGGER.log(Level.INFO,"Enter email:");
+            customerEmail = buff.readLine();
+            LOGGER.log(Level.INFO,"Enter Gender:");
+            customerGender = buff.readLine();
+            LOGGER.log(Level.INFO,"Enter Phone:");
+            customerPhone = buff.readLine();
+            LOGGER.log(Level.INFO,"Adhaar Card No:");
             customerAadhar = buff.readLine();
         }
         catch(IOException e){
-            e.printStackTrace();
+            LOGGER.log(Level.INFO,e.getMessage());
         }
         bankName = bank;
         balance = 1000;
